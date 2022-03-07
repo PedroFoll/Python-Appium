@@ -22,5 +22,5 @@
      podem ser utilizado: 
      
      "UIAutomatorViewer - Incluso no Android Studio - Path = \AppData\Local\Android\Sdk\tools\bin" 
-     "AppiumInspector - https://github.com/appium/appium-inspector/releases"
-     
+     "AppiumInspector - https://github.com/appium/appium-inspector/releases"     
+main
