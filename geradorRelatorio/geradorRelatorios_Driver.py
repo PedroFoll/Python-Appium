@@ -10,7 +10,7 @@ class GerandoRelatorio():
     def gerando_pasta_relatorio(driver, dados, textRelatorio):
         
         nomeRelatorio = dados['nome_relatorio']
-        nomeApp = dados['nomedoapp']
+        nomeApp = dados['nomeApp']
         tipoPlataforma = dados['tipo_plataforma']
         dataTime = Helpers.gerador_data_hora()
         name = driver.current_activity
@@ -30,7 +30,7 @@ class GerandoRelatorio():
                 arquivo.write(htmlHead+textRelatorio+imagemRelatorio+htmlFoot)
             return 'Já existe'
         else:
-            os.mkdir("relatorios/"+nomeApp) # aqui criamos a pasta caso nao exista
+            os.mkdir("relatorios/"+nomeApp+"/"+nomeRelatorio+" "+dataTime) # aqui criamos a pasta caso nao exista
             with open("relatorios/"+nomeApp+"/"+nomeRelatorio+" "+dataTime+"/TESTE_DE_"+ nomeRelatorio +".html", 'w') as arquivo:
                 arquivo.write("Teste realizado\n"+dataTime+"\n")
                 arquivo.write(htmlHead+textRelatorio+imagemRelatorio+htmlFoot)

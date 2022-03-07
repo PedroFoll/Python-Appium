@@ -2,9 +2,10 @@
 from appium.webdriver import Remote
 import sys
 from time import sleep
-
+from flask import request
 from sqlalchemy import true
 from geradorRelatorio.geradorRelatorios_Driver import GerandoRelatorio
+from setup import  envia_dados
 from Motorista.teste_login.variaveisCadastro import*
 from Motorista.teste_login.variaveisProfileMenu import*
 from helpers.helpers import Helpers
@@ -35,13 +36,10 @@ class Teste_Login():
     def localizando_elemento(driver,dados):
         try:
             
-            
             driver.find_element_by_xpath(botaoLoginM)
             return bool
         except Exception:
-            textRelatorio = "<li> ERRO Ao encontrar o botão de login - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
-            return {'Mensagem': 'Ao encontrar o botão de login', 'falhou': False}
+            Helpers.conexao_db(dados=dados, Mensagem="Nao foi possivel encontrar botao de login", nome_relatorio="Teste Login", status = "Falhou"), sys.exit()
 
 
     def clickando_botao_login(driver,dados):
@@ -51,11 +49,8 @@ class Teste_Login():
             driver.find_element_by_xpath(botaoLoginM).click()
             return True
         except Exception:
-
-            textRelatorio = "<li> ERRO Ao clickar em login - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
-            return {'Mensagem': 'botão de login não encontrado', 'falhou': False}
-
+            Helpers.conexao_db(dados=dados, Mensagem="Nao foi possivel clickar em logar",nome_relatorio="Teste Login", status = "Falhou" ), sys.exit()
+            
 
     def inserindo_credenciais(driver, dados):
         try:
@@ -67,35 +62,23 @@ class Teste_Login():
             print("Inserindo Senha")           
             return True
         except Exception:
-            
-            textRelatorio = "<li> Não foi possivel inserir as credenciais - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
-            return {'Mensagem': 'Não foi possivel inserir as credenciais', 'falhou': False}, quit()
+            Helpers.conexao_db(dados=dados, Mensagem="Nao foi possivel inserir os dados de login do motorista",nome_relatorio="Teste Login", status = "Falhou"), sys.exit()
 
     def clicando_logar(driver,dados):
         try:
+            sleep(15)
             driver.find_element_by_xpath (botaoLogarM)
             if botaoLogarM:
                 driver.find_element_by_xpath (botaoLogarM).click()
-                sleep(5)
                 try:
                     driver.find_element_by_xpath(attentionmodal)
-                except:
-                    print("Login funcionou")
-                    textRelatorio = "<li> Login realizado - Sucesso</li>"
-                    GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
-                    return {'Mensagem': 'Login realizado', 'Sucesso': True}
-                else:
-                    print("Login deu errado")
-                    textRelatorio = "<li> Login invalido ou falta de conexão com a internet - FALHOU</li>"
-                    return {'Mensagem': 'Login invalido ou falta de conexão com a internet', 'falhou': False}, quit()
-                            
+                    if attentionmodal:
+                        Helpers.conexao_db(dados=dados, Mensagem="Sem conexão com internet, ou senha invalada",nome_relatorio="Teste Login", status = "Falhou"), sys.exit()
+                except Exception as sucesso:
+                    return sucesso
         except:
-            print("Finalizando função")
-            sleep(10)
-            textRelatorio += "<li> Não foi possivel logar - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
-            return {'Mensagem': 'Não foi possivel logar', 'falhou': False}, quit()  
+
+            Helpers.conexao_db(dados=dados, Mensagem="Nao foi possivel logar",nome_relatorio="Teste Login", status = "Falhou"), sys.exit()
 
     def aceitando_permissao(driver,dados):
         try:
@@ -104,8 +87,7 @@ class Teste_Login():
             print("Aceitando permissão")
         except Exception:
 
-            textRelatorio += "<li> Não foi possível aceitar a permissão de localização1 - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            Helpers.conexao_db(dados=dados, Mensagem="Campo informando que será utilizado a localização não encontrado",nome_relatorio="Teste Login", status = "Falhou"), sys.exit()
 
     def Permissao_Local(driver,dados):
         try:
@@ -114,10 +96,8 @@ class Teste_Login():
             print("Aceitando permissão 2")
         except Exception:
 
-            textRelatorio += "<li> Não foi possível aceitar a permissão de localização2- FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
-
-    
+            Helpers.conexao_db(dados=dados, Mensagem="Campo de permissão de localização não encontrado",nome_relatorio="Teste Login", status = "Falhou"), sys.exit()
+            
     def Permissao_Sobreposicao(driver,dados):
         try:
 
@@ -125,34 +105,23 @@ class Teste_Login():
             print("Permissão Sobreposição")
         except Exception:
 
-            textRelatorio += "<li> Permissão de sobreposição já foi concedida </li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
-
+            return "Permissão de sobreporsião de aplicativos não foi solicitada"
+            
     def Permissao_All_Time(driver, dados):
         try:
             
             driver.find_element_by_xpath(permissaoTodoTempo)
+        except:
+            Helpers.conexao_db(dados=dados, Mensagem="Nao foi possivel realizar o login",nome_relatorio="Teste Login", status = "Falhou"), sys.exit()
+        else:
             if permissaoTodoTempo:
                 driver.find_element_by_xpath(permissaoTodoTempo).click()
-                print("Permissao de Uso a todo momento")
                 try:
                     driver.find_element_by_xpath(allowUseMidia)
                     if allowUseMidia:
                         driver.find_element_by_xpath(allowUseMidia).click()
                 except:
-                    print(" erro ao tentar permitir o uso de midia")
-                    textRelatorio += '<li>Permissao ao uso de midia ja concedido</li>'
-                    GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
-                    
-            
-            textRelatorio = '<li>Login realizado com Sucesso</li>'
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
-            return {'mengagem': 'Todas as permissões foram concedidas', 'sucesso': True, 'driver': driver}
-        
-        except:
-
-            textRelatorio = "<li> Não foi possivel logar no motorista - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
-            return {'Mensagem': 'Não foi possível Logar no motorista','falhou': False}
-
+                    print("foi")
+                    Helpers.conexao_db(dados=dados, Mensagem="Login realizado com sucesso",nome_relatorio="Teste Login", status = "Sucesso")
+                    return {'driver': driver}
 #Funcionando
