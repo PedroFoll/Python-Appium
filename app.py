@@ -1,7 +1,8 @@
 
 from re import T
 from flask import Flask, request
-from Motorista.aceitar_agendamento.aceitando_corrida_agendada import Aceitar_Agendamento
+from Motorista.aceitar_corrida_agendada.aceitando_corrida_agendada import Aceitar_Agendamento
+from Motorista.cancelar_agendamento.cancelar_agendamento import Cancelar_agendamento
 from Motorista.mudar_foto_motorista.mudar_foto import Mudar_Foto
 from Motorista.mudar_senha_motorista.mudar_senha import Trocando_senha
 from Passageiro.testeAddMotoristaFavorito.testeAddMotoristaFavorito import TesteAddMotoristaFavorito
@@ -12,15 +13,11 @@ from Passageiro.testeMudarSenha.testeMudarSenha import TesteMudarSenhaClient
 from Passageiro.testeChamado.testeChamado import TesteChamado
 from Motorista.teste_login.testes_loginM import Teste_Login
 from Motorista.teste_cadastro.teste_Cadastro_Motorista import Teste_Cadastro_Motorista
-from flask_sqlalchemy import SQLAlchemy
+from setup import db
 
 #myslq://root:root@localhost/flasksql
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS']= True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'myslq://root:root@localhost/flasksql'
-db = SQLAlchemy(app)
-
+app = db.app
 
 @app.route('/teste-login', methods=['POST'])
 def teste_login():
@@ -62,6 +59,11 @@ def aceite_agendamento():
     req = request.get_json()
     return Aceitar_Agendamento.aceitando_corrida(req)
 
+@app.route('/cancelar_agendamento', methods=['POST'])
+def cancelar_agendamento():
+    req = request.get_json()
+    return Cancelar_agendamento.cancelando_corrida_agendada(req)
+
 ###########################################################################################################
 
 @app.route ('/teste-cadastro', methods=['POST'])
@@ -89,4 +91,6 @@ def teste_add_motorista_favorito():
 
 
 if __name__ == '__main__':
+    app.config['SECRET_KEY'] = "159753"
+    db.init_app(app)
     app.run(debug = True)

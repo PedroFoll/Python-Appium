@@ -7,7 +7,7 @@ overOtherApps= ("//android.widget.Switch[@resource-id='android:id/switch_widget'
 backButton=("//android.widget.ImageButton[@content-desc='Navigate up']")
 
 #Todo os Xpaths de login
-botaoLoginM = ("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View/android.view.View[1]/android.view.View[1]/android.view.View[1]")
+botaoLoginM = ("//android.view.View[@text='LOGIN']")
 campoEmailM = ("//android.widget.EditText[@resource-id='email']")
 campoSenhaM = ("//android.widget.EditText[@resource-id='password']")
 botaoLogarM = ("//android.widget.Button[@resource-id='authenticateUser']")

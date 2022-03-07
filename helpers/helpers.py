@@ -2,7 +2,9 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from datetime import datetime
 from random import randint
+from setup import  envia_dados
 import random
+from os import sys
 
 class Helpers():
 
@@ -33,7 +35,14 @@ class Helpers():
         return numeroCelularAleatorio
 
 
-    
+    def conexao_db(dados, Mensagem,status,nome_relatorio):
+        dataHora = Helpers.gerador_data_hora()
+        envia_dados(nomeApp= dados['nomeApp'], 
+                        nome_relatorio= nome_relatorio,
+                        tipo_plataforma = dados['tipo_plataforma'],
+                        status=status,
+                        dataHora=dataHora,
+                        Mensagem=Mensagem )
 
     
 
