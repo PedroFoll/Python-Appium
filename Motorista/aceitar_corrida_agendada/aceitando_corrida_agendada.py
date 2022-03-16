@@ -1,10 +1,7 @@
 from time import sleep
 from geradorRelatorio.geradorRelatorios_Driver import GerandoRelatorio
-from Motorista.teste_login.variaveisCadastro import*
-from Motorista.teste_login.variaveisProfileMenu import*
-from Motorista.teste_login.variaveisAceitandoCorridas import*
+from Motorista.variaveis.variaveis import*
 from Motorista.teste_login.testes_loginM import Teste_Login
-from helpers.helpers import Helpers
 from os import sys
 
 class Aceitar_Agendamento:
@@ -35,8 +32,11 @@ class Aceitar_Agendamento:
             driver.find_element_by_xpath(botaoStart)
         
         except Exception as erro:
-            Helpers.conexao_db(dados=dados, Mensagem="Iniciar nao encontrado",nome_relatorio="Teste Aceitando Corrida Agendada",status = "Falhou"), sys.exit()        
-        
+            print(erro)
+            textRelatorio = 'Botão de Iniciar nao encontrado'
+            GerandoRelatorio.enviando_dados_db(driver, dados = dados, textRelatorio= textRelatorio, nome_relatorio="Teste de aceitar agendamento - Motorista",nomeApp=['nomeApp'], status= "Falhou")
+            return {'mensagem': 'botão aceite não encontrado', 'falhou': False},sys.exit() 
+
         else:
             driver.find_element_by_xpath(botaoStart).click()
             return True
@@ -60,7 +60,10 @@ class Aceitar_Agendamento:
                 driver.find_element_by_xpath(scheduleTrip).click()
                                 
         except:
-            Helpers.conexao_db(dados=dados, Mensagem="NAO EXISTE NENHUMA CORRIDA AGENDADA NO MOMENTO",nome_relatorio="Teste Aceitando Corrida Agendada",status = "Falhou"), sys.exit()        
+            textRelatorio = 'NAO EXISTE NENHUMA CORRIDA AGENDADA NO MOMENTO'
+            GerandoRelatorio.enviando_dados_db(driver, dados = dados, textRelatorio= textRelatorio, nome_relatorio="Teste de aceitar agendamento - Motorista",nomeApp=['nomeApp'], status= "Falhou")
+            return {'mensagem': 'botão aceite não encontrado', 'falhou': False},sys.exit() 
+
     def selecionando_corrida(driver, dados):
         try:
 
@@ -69,7 +72,10 @@ class Aceitar_Agendamento:
                 driver.find_element_by_xpath(acceptTheTrip).click()
 
         except:
-            Helpers.conexao_db(dados=dados, Mensagem="NAO EXISTE NENHUMA CORRIDA EM AGENDAMENTOS",nome_relatorio="Teste Aceitando Corrida Agendada",status = "Falhou"), sys.exit()
+            textRelatorio = 'NAO EXISTE NENHUMA CORRIDA EM AGENDAMENTOS'
+            GerandoRelatorio.enviando_dados_db(driver, dados = dados, textRelatorio= textRelatorio, nome_relatorio="Teste de aceitar agendamento - Motorista",nomeApp=['nomeApp'], status= "Falhou")
+            return {'mensagem': 'botão aceite não encontrado', 'falhou': False},sys.exit() 
+
     def confirmando_corrida_agendada(driver, dados):
 
         try:
@@ -79,7 +85,10 @@ class Aceitar_Agendamento:
                 driver.find_element_by_xpath(yesAcceptOrCancelTrip).click()
         
         except:
-            Helpers.conexao_db(dados=dados, Mensagem="NAO EXISTE NENHUMA CORRIDA AGENDADA NO MOMENTO",nome_relatorio="Teste Aceitando Corrida Agendada",status = "Falhou"), sys.exit()
+            textRelatorio = 'NAO EXISTE NENHUMA CORRIDA AGENDADA NO MOMENTO'
+            GerandoRelatorio.enviando_dados_db(driver, dados = dados, textRelatorio= textRelatorio, nome_relatorio="Teste de aceitar agendamento - Motorista",nomeApp=['nomeApp'], status= "Falhou")
+            return {'mensagem': 'botão aceite não encontrado', 'falhou': False},sys.exit() 
+
     def confirmação_final_aceitando_corrida(driver, dados):
 
         try:
@@ -89,7 +98,11 @@ class Aceitar_Agendamento:
                 driver.find_element_by_xpath(afterAcceptedOrCancelTrip).click()
         
         except:
-            Helpers.conexao_db(dados=dados, Mensagem="NAO FOI POSSIVEL ACEITAR A CORRIDA AGENDADA",nome_relatorio="Teste Aceitando Corrida Agendada",status = "Falhou"), sys.exit()
+            textRelatorio = 'NAO FOI POSSIVEL ACEITAR A CORRIDA AGENDADA'
+            GerandoRelatorio.enviando_dados_db(driver, dados = dados, textRelatorio= textRelatorio, nome_relatorio="Teste de aceitar agendamento - Motorista",nomeApp=['nomeApp'], status= "Falhou")
+            return {'mensagem': 'botão aceite não encontrado', 'falhou': False,'driver': driver},sys.exit() 
+
         else:
-            Helpers.conexao_db(dados=dados, Mensagem="TESTE DE ACEITE DE CORRIDA AGENDADA CONCLUIDO",nome_relatorio="Teste Aceitando Corrida Agendada",status = "Sucesso")
-            return {'driver': driver}
+            textRelatorio = 'TESTE DE ACEITE DE CORRIDA AGENDADA CONCLUIDO'
+            GerandoRelatorio.enviando_dados_db(driver, dados = dados, textRelatorio= textRelatorio, nome_relatorio="Teste de aceitar agendamento - Motorista",nomeApp=['nomeApp'], status="Sucesso")
+            return {'mensagem': 'botão aceite não encontrado', 'falhou': False}

@@ -1,36 +1,25 @@
-
-from re import T
 from flask import Flask, request
+from Motorista.iniciar_macaneta_manual.macaneta_motorista import Macaneta_manual
 from Motorista.aceitar_corrida_agendada.aceitando_corrida_agendada import Aceitar_Agendamento
 from Motorista.cancelar_agendamento.cancelar_agendamento import Cancelar_agendamento
+from Motorista.enviando_mensagens.enviar_mensagens import Enviar_mensagem
 from Motorista.mudar_foto_motorista.mudar_foto import Mudar_Foto
 from Motorista.mudar_senha_motorista.mudar_senha import Trocando_senha
-from Passageiro.testeAddMotoristaFavorito.testeAddMotoristaFavorito import TesteAddMotoristaFavorito
-from Passageiro.testeDeCadastro.testeCadastro import TesteCadastroClient
-from Passageiro.testeDeLogin.testeLogin import TesteLoginClient
-from Passageiro.testeMudarFoto.testeMudarFoto import TesteMudarFotoClient
-from Passageiro.testeMudarSenha.testeMudarSenha import TesteMudarSenhaClient
-from Passageiro.testeChamado.testeChamado import TesteChamado
 from Motorista.teste_login.testes_loginM import Teste_Login
 from Motorista.teste_cadastro.teste_Cadastro_Motorista import Teste_Cadastro_Motorista
-from setup import db
-
-#myslq://root:root@localhost/flasksql
-
-app = db.app
-
-@app.route('/teste-login', methods=['POST'])
-def teste_login():
-    request_data = request.get_json()
-    return TesteLoginClient.criando_teste_login(request_data)
+from Motorista.liberacao_corrida.liberar_corrida import Liberar_corrida
+from Motorista.aceitando_corridas.aceitar_corrida import Aceitar_corrida
+from Motorista.finalizando_chamado.finalizar_chamado import Finalizar_chamado
 
 
-@app.route('/teste-chamado', methods=['POST'])
-def teste_chamado():
-    request_data = request.get_json()
-    return TesteChamado.criando_teste_chamado(request_data)
+app = Flask(__name__)
 
 ##########################################################################################################
+@app.route('/macaneta_manual',methods=["POST"])
+def Macaneta():
+    req=request.get_json()
+    return Macaneta_manual.Iniciando_macaneta(req)
+    
 
 @app.route('/teste_login_Motorista', methods=["POST"])
 def Teste_login():
@@ -64,33 +53,27 @@ def cancelar_agendamento():
     req = request.get_json()
     return Cancelar_agendamento.cancelando_corrida_agendada(req)
 
-###########################################################################################################
+@app.route('/liberar_corrida',methods=['POST'])
+def liberando_corrida():
+    req = request.get_json()
+    return Liberar_corrida.liberando_corrida(req)
 
-@app.route ('/teste-cadastro', methods=['POST'])
-def teste_cadastro():
-    request_data = request.get_json()
-    return TesteCadastroClient.criando_teste_cadastro_passageiro(request_data)
+@app.route('/aceitar_corrida',methods=['POST'])
+def aceitando_corridas():
+    req = request.get_json()
+    return Aceitar_corrida.aceitando_corridas(req)
 
+@app.route('/enviar_mensagem', methods=['POST'])
+def enviar_mensagem():
+    req = request.get_json()
+    return Enviar_mensagem.enviando_mensagem(req)
 
-@app.route ('/teste-mudar-senha-cliente', methods=['POST'])
-def teste_mudar_senha_cliente():
-    request_data = request.get_json()
-    return TesteMudarSenhaClient.criando_teste_mudar_senha_passageiro(request_data)
+@app.route('/finalizar_corrida',methods=['POST'])
+def finalizar_corridas():
+    req = request.get_json()
+    return Finalizar_chamado.finalizando_chamado(req)
 
-
-@app.route ('/teste-mudar-foto-cliente', methods=['POST'])
-def teste_mudar_foto_cliente():
-    request_data = request.get_json()
-    return TesteMudarFotoClient.criando_teste_mudar_foto_passageiro(request_data)
-
-
-@app.route ('/teste-add-motorista-favorito', methods=['POST'])
-def teste_add_motorista_favorito():
-    request_data = request.get_json()
-    return TesteAddMotoristaFavorito.criando_teste_add_motorista_favorito(request_data)
 
 
 if __name__ == '__main__':
-    app.config['SECRET_KEY'] = "159753"
-    db.init_app(app)
     app.run(debug = True)

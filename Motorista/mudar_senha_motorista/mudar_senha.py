@@ -1,10 +1,7 @@
-from appium.webdriver import Remote
 import sys
 from time import sleep
 from geradorRelatorio.geradorRelatorios_Driver import GerandoRelatorio
-from Motorista.teste_login.variaveisCadastro import*
-from Motorista.teste_login.variaveisProfileMenu import*
-from helpers.helpers import Helpers
+from Motorista.variaveis.variaveis import*
 from Motorista.teste_login.testes_loginM import Teste_Login
 from appium.webdriver.common.touch_action import TouchAction
 
@@ -25,9 +22,8 @@ class Trocando_senha:
             Trocando_senha.selecionando_Menu(driver, dados)
             Trocando_senha.selecionando_Perfil(driver, dados)
             Trocando_senha.clickando_Editar_Perfil(driver, dados)
-            Trocando_senha.preenchendo_Troca_Senha(driver, dados)
             
-            return {'mensagem': 'Deu certo', 'sucesso': True}
+            return {Trocando_senha.preenchendo_Troca_Senha(driver, dados)}
     
     def localizando_elemento (driver, dados):
 
@@ -37,20 +33,20 @@ class Trocando_senha:
             return True
         except Exception as erro:
             print(erro)
-            textRelatorio = "<li> ERRO Ao clickar em login - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
-            return {'Mensagem': 'botão de login não encontrado', 'falhou': False}, erro, sys.exit()
-        
+            textRelatorio = "Botão para ficar online não necontrando"
+            GerandoRelatorio.enviando_dados_db(driver, dados = dados, textRelatorio= textRelatorio, nome_relatorio="Teste de troca de senha - Motorista",nomeApp=['nomeApp'], status= "Falhou")
+            return {'mensagem': 'botão aceite não encontrado', 'falhou': False},sys.exit() 
+
     def selecionando_Menu(driver, dados):
         try:
 
             TouchAction(driver).tap(x=970, y=206).perform()
         except Exception as erro:
             print(erro)
-            textRelatorio = '<li>ERRO - ao selecionar menu - FALHOU</li>'
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
-            return {'mensagem': 'ERRO - ao selecionar menu - FALHOU', 'falhou': False}, erro, sys.exit()
-
+            textRelatorio = "Erro ao selecionar menu"
+            GerandoRelatorio.enviando_dados_db(driver, dados = dados, textRelatorio= textRelatorio, nome_relatorio="Teste de troca de senha - Motorista",nomeApp=['nomeApp'], status= "Falhou")
+            return {'mensagem': 'Erro ao selecionar menu', 'falhou': False},sys.exit() 
+            
     def selecionando_Perfil(driver, dados):
         try:
             
@@ -58,10 +54,10 @@ class Trocando_senha:
             driver.find_element_by_xpath(profileButton).click()
         except Exception as erro:
             print(erro)
-            textRelatorio = '<li>ERRO - ao acessar Perfil - FALHOU</li>'
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
-            return {'mensagem': 'ERRO - ao acessar Perfil - FALHOU', 'falhou': False}, erro, sys.exit()
-
+            textRelatorio = "Erro ao acessar Perfil"
+            GerandoRelatorio.enviando_dados_db(driver, dados = dados, textRelatorio= textRelatorio, nome_relatorio="Teste de troca de senha - Motorista",nomeApp=['nomeApp'], status= "Falhou")
+            return {'mensagem': 'Erro ao selecionar menu', 'falhou': False},sys.exit() 
+            
     def clickando_Editar_Perfil(driver, dados):
         try:
 
@@ -69,10 +65,11 @@ class Trocando_senha:
             driver.find_element_by_xpath(editProfileButton).click()
             sleep(10)
         except Exception as erro:
-            textRelatorio = '<li>ERRO - ao tentar editar o Perfil - FALHOU</li>'
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
-            return {'mensagem': 'ERRO - ao tentar editar o Perfil - FALHOU', 'falhou': False}, erro, sys.exit()
-    
+            print(erro)
+            textRelatorio = "Erro ao tentar editar o Perfil"
+            GerandoRelatorio.enviando_dados_db(driver, dados = dados, textRelatorio= textRelatorio, nome_relatorio="Teste de troca de senha - Motorista",nomeApp=['nomeApp'], status= "Falhou")
+            return {'mensagem': 'Erro ao tentar editar o Perfil', 'falhou': False},sys.exit() 
+            
     def preenchendo_Troca_Senha(driver, dados):
         try:
             
@@ -83,9 +80,10 @@ class Trocando_senha:
 
         except Exception as erro:
             print(erro)
-            textRelatorio = '<li>ERRO - ao tentar editar o Perfil - FALHOU</li>'
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
-            return {'mensagem': 'ERRO - ao tentar editar o Perfil - FALHOU', 'falhou': False}, erro, sys.exit()
+            textRelatorio = "Erro ao identificar os campos de troca de senha"
+            GerandoRelatorio.enviando_dados_db(driver, dados = dados, textRelatorio= textRelatorio, nome_relatorio="Teste de troca de senha - Motorista",nomeApp=['nomeApp'], status= "Falhou")
+            return {'mensagem': 'Erro ao identificar os campos de troca de senha', 'falhou': False},sys.exit() 
+            
 
         try:
             
@@ -96,10 +94,10 @@ class Trocando_senha:
 
         except Exception as erro:
             print(erro)
-            textRelatorio = '<li>ERRO - ao tentar editar o Perfil - FALHOU</li>'
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
-            return {'mensagem': 'ERRO - ao tentar editar o Perfil - FALHOU', 'falhou': False}, erro, sys.exit()
-
+            textRelatorio = "Não foi possivel inserir a nova senha"
+            GerandoRelatorio.enviando_dados_db(driver, dados = dados, textRelatorio= textRelatorio, nome_relatorio="Teste de troca de senha - Motorista",nomeApp=['nomeApp'], status= "Falhou")
+            return {'mensagem': 'Não foi possivel inserir a nova senha', 'falhou': False},sys.exit() 
+            
         try:
             driver.find_element_by_xpath(confirmationPassword)
             if confirmationPassword:
@@ -108,12 +106,13 @@ class Trocando_senha:
 
         except Exception as erro:
             print(erro)
-            textRelatorio = '<li>ERRO - ao tentar editar o Perfil - FALHOU</li>'
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
-            return {'mensagem': 'ERRO - ao tentar editar o Perfil - FALHOU', 'falhou': False}, erro, sys.exit()
-
+            textRelatorio = "Não foi possivel inserir a senha de confirmação"
+            GerandoRelatorio.enviando_dados_db(driver, dados = dados, textRelatorio= textRelatorio, nome_relatorio="Teste de troca de senha - Motorista",nomeApp=['nomeApp'], status= "Falhou")
+            return {'mensagem': 'Não foi possivel inserir a senha de confirmação', 'falhou': False},sys.exit() 
+            
         else:
             driver.find_element_by_xpath(savePassword).click()
-            textRelatorio = '<li>Sucesso- Senha alterada</li>'
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
-            print("Deu certo boy")
+            textRelatorio = "Não foi possivel inserir a senha de confirmação"
+            GerandoRelatorio.enviando_dados_db(driver, dados = dados, textRelatorio= textRelatorio, nome_relatorio="Teste de troca de senha - Motorista",nomeApp=['nomeApp'], status= "Sucesso")
+            return {'mensagem': 'Não foi possivel inserir a senha de confirmação', 'Sucesso': True},sys.exit() 
+            

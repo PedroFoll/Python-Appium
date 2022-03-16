@@ -1,5 +1,6 @@
+
 from random import randint
-import random
+
 def formatCpf(a):
     a=list(a)
     a.insert(3,'.')
