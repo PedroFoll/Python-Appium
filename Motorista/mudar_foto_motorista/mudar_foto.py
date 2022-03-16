@@ -1,10 +1,7 @@
-from appium.webdriver import Remote
 import sys
-from time import sleep
 from geradorRelatorio.geradorRelatorios_Driver import GerandoRelatorio
-from Motorista.teste_login.variaveisCadastro import*
-from Motorista.teste_login.variaveisProfileMenu import*
-from helpers.helpers import Helpers
+from time import sleep
+from Motorista.variaveis.variaveis import*
 from Motorista.teste_login.testes_loginM import Teste_Login
 from appium.webdriver.common.touch_action import TouchAction
 
@@ -17,7 +14,7 @@ class Mudar_Foto:
         
         executandologin = Teste_Login.Logando_Motorista(dados)
         driver = executandologin['driver']
-        driver.implicitly_wait(5)
+        driver.implicitly_wait(20)
 
         localizando = Mudar_Foto.localizando_elemento(driver, dados)
         if localizando:
@@ -39,9 +36,9 @@ class Mudar_Foto:
             
         except Exception as erro:
             print(erro)
-            textRelatorio = "<li> ERRO Ao clickar em login - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
-            return {'Mensagem': 'botão de login não encontrado', 'falhou': False}, erro, sys.exit()
+            textRelatorio = "Botão para ficar online não necontrando"
+            GerandoRelatorio.enviando_dados_db(driver, dados = dados, textRelatorio= textRelatorio, nome_relatorio="Troca de foto - Motorista",nomeApp=['nomeApp'], status= "Falhou")
+            return {'mensagem': 'botão aceite não encontrado', 'falhou': False},sys.exit() 
 
 
     def selecionando_Menu(driver, dados):
@@ -50,10 +47,10 @@ class Mudar_Foto:
             TouchAction(driver).tap(x=970, y=206).perform()
         except Exception as erro:
             print(erro)
-            textRelatorio = '<li>ERRO - ao selecionar menu - FALHOU</li>'
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
-            return {'mensagem': 'ERRO - ao selecionar menu - FALHOU', 'falhou': False}, erro, sys.exit()
-    
+            textRelatorio = "Erro ao selecionar menu"
+            GerandoRelatorio.enviando_dados_db(driver, dados = dados, textRelatorio= textRelatorio, nome_relatorio="Troca de foto - Motorista",nomeApp=['nomeApp'], status= "Falhou")
+            return {'mensagem': 'Erro ao selecionar menu', 'falhou': False},sys.exit() 
+                
     def selecionando_Perfil(driver, dados):
         try:
             
@@ -61,10 +58,10 @@ class Mudar_Foto:
             driver.find_element_by_xpath(profileButton).click()
         except Exception as erro:
             print(erro)
-            textRelatorio = '<li>ERRO - ao acessar Perfil - FALHOU</li>'
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
-            return {'mensagem': 'ERRO - ao acessar Perfil - FALHOU', 'falhou': False}, erro, sys.exit()
-
+            textRelatorio = "Erro ao acessar Perfil"
+            GerandoRelatorio.enviando_dados_db(driver, dados = dados, textRelatorio= textRelatorio, nome_relatorio="Troca de foto - Motorista",nomeApp=['nomeApp'], status= "Falhou")
+            return {'mensagem': 'Erro ao selecionar menu', 'falhou': False},sys.exit() 
+            
 
     def clickando_Editar_Perfil(driver, dados):
         try:
@@ -73,9 +70,10 @@ class Mudar_Foto:
             driver.find_element_by_xpath(editProfileButton).click()
             sleep(10)
         except Exception as erro:
-            textRelatorio = '<li>ERRO - ao tentar editar o Perfil - FALHOU</li>'
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
-            return {'mensagem': 'ERRO - ao tentar editar o Perfil - FALHOU', 'falhou': False}, erro, sys.exit()
+            print(erro)
+            textRelatorio = "Erro ao tentar editar o Perfil"
+            GerandoRelatorio.enviando_dados_db(driver, dados = dados, textRelatorio= textRelatorio, nome_relatorio="Troca de foto - Motorista",nomeApp=['nomeApp'], status= "Falhou")
+            return {'mensagem': 'Erro ao tentar editar o Perfil', 'falhou': False},sys.exit() 
             
 
     def enviando_nova_foto(driver,dados):
@@ -95,9 +93,8 @@ class Mudar_Foto:
                         
                 except :
                     print(" erro ao tentar permitir o uso de midia")
-                    textRelatorio = '<li>Permissao ao uso de midia ja concedido</li>'
-                    GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
-                    return {'mensagem': 'Permissao ao uso de midia ja concedido', 'falhou': False}
+                    textRelatorio = "Permissao ao uso de midia ja concedido"
+                    return textRelatorio
             
             try:
 
@@ -107,19 +104,19 @@ class Mudar_Foto:
                     driver.find_element_by_xpath(cammeraButton).click()
                     sleep(3)
                 else:
-                    textRelatorio = "<li> ERRO NÃO FOI POSSIVEL  BATER A FOTO - FALHOU</li>"
-                    GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
-                    return {'Mensagem': 'NÃO FOI POSSIVEL  BATER A FOTO', 'falhou': False}, erro, sys.exit()
+                    textRelatorio = "NÃO FOI POSSIVEL  BATER A FOTO"
+                    GerandoRelatorio.enviando_dados_db(driver, dados = dados, textRelatorio= textRelatorio, nome_relatorio="Troca de foto - Motorista",nomeApp=['nomeApp'], status= "Falhou")
+                    return {'mensagem': 'NÃO FOI POSSIVEL  BATER A FOTO', 'falhou': False},sys.exit() 
+            
 
             except Exception as erro:
-                textRelatorio = "<li> ERRO NÃO FOI POSSIVEL ENCONTRAR O BOTAO PARA BATER A FOTO - FALHOU</li>"
-                GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
-                return {'Mensagem': 'NÃO FOI POSSIVEL ENCONTRAR O BOTAO PARA BATER A FOTO', 'falhou': False}, erro, sys.exit()
-
+                print(erro)
+                textRelatorio = "NÃO FOI POSSIVEL ENCONTRAR O BOTAO PARA BATER A FOTO"
+                GerandoRelatorio.enviando_dados_db(driver, dados = dados, textRelatorio= textRelatorio, nome_relatorio="Troca de foto - Motorista",nomeApp=['nomeApp'], status= "Falhou")
+                return {'mensagem': 'NÃO FOI POSSIVEL ENCONTRAR O BOTAO PARA BATER A FOTO', 'falhou': False},sys.exit() 
+            
             else:
                 sleep(5)
-
-
             try:
 
                 driver.find_element_by_xpath(photoConfirm)
@@ -128,33 +125,36 @@ class Mudar_Foto:
                         driver.find_element_by_xpath(photoConfirm).click()
                         sleep(3)
                 else:
-                    textRelatorio = "<li> ERRO NÃO FOI POSSIVEL ENVIAR A FOTO - FALHOU</li>"
-                    GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
-                    return {'Mensagem': 'NÃO FOI POSSIVEL ENVIAR A FOTO', 'falhou': False}, erro, sys.exit()
-
-            except Exception as erro:
-                textRelatorio = "<li> ERRO NÃO FOI POSSIVEL ENCONTRAR O BOTAO PARA ENVIO - FALHOU</li>"
-                GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
-                return {'Mensagem': 'NÃO FOI POSSIVEL ENCONTRAR O BOTAO PARA ENVIO', 'falhou': False}, erro, sys.exit()
+                    textRelatorio = "ERRO NÃO FOI POSSIVEL ENVIAR A FOTO"
+                    GerandoRelatorio.enviando_dados_db(driver, dados = dados, textRelatorio= textRelatorio, nome_relatorio="Troca de foto - Motorista",nomeApp=['nomeApp'], status= "Falhou")
+                    return {'mensagem': 'ERRO NÃO FOI POSSIVEL ENVIAR A FOTO', 'falhou': False},sys.exit() 
             
+            except Exception as erro:
+                print(erro)
+                textRelatorio = "NÃO FOI POSSIVEL ENCONTRAR O BOTAO PARA ENVIO"
+                GerandoRelatorio.enviando_dados_db(driver, dados = dados, textRelatorio= textRelatorio, nome_relatorio="Troca de foto - Motorista",nomeApp=['nomeApp'], status= "Falhou")
+                return {'mensagem': 'NÃO FOI POSSIVEL ENCONTRAR O BOTAO PARA ENVIO', 'falhou': False},sys.exit() 
+
             try:
                 driver.find_element_by_xpath(confirmPictureSend)
                 if confirmPictureSend:
                     driver.find_element_by_xpath(confirmPictureSend).click()
             except:
-                textRelatorio = "<li> ERRO NÃO FOI POSSIVEL ENVIAR FOTO  - FALHOU</li>"
-                GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
-                return {'Mensagem': 'NÃO FOI POSSIVEL ENVIAR FOTO ', 'falhou': False}, erro, sys.exit()
-
+                print(erro)
+                textRelatorio = "NÃO FOI POSSIVEL ENVIAR FOTO"
+                GerandoRelatorio.enviando_dados_db(driver, dados = dados, textRelatorio= textRelatorio, nome_relatorio="Troca de foto - Motorista",nomeApp=['nomeApp'], status= "Falhou")
+                return {'mensagem': 'NÃO FOI POSSIVEL ENVIAR FOTO', 'falhou': False},sys.exit() 
+                
 
 
 
         except:
-            textRelatorio = "<li> ERRO NÃO FOI ENCONTRADO CAMPO PARA MUDANÇA DE FOTO - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
-            return {'Mensagem': 'NÃO FOI ENCONTRADO CAMPO PARA MUDANÇA DE FOTO', 'falhou': False}, erro, sys.exit()
-
+            textRelatorio = "NÃO FOI ENCONTRADO CAMPO PARA MUDANÇA DE FOTO"
+            GerandoRelatorio.enviando_dados_db(driver, dados = dados, textRelatorio= textRelatorio, nome_relatorio="Troca de foto - Motorista",nomeApp=['nomeApp'], status= "Falhou")
+            return {'mensagem': 'NÃO FOI ENCONTRADO CAMPO PARA MUDANÇA DE FOTO', 'falhou': False},sys.exit() 
+                
         else:
-            textRelatorio = "<li>SUCESSO - SOLICITAÇÃO DE TROCA DE FOTO ENVIADA </li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
-            return {'Mensagem': 'SUCESSO - SOLICITAÇÃO DE TROCA DE FOTO ENVIADA', 'falhou': False}
+            textRelatorio = "SOLICITAÇÃO DE TROCA DE FOTO ENVIADA"
+            GerandoRelatorio.enviando_dados_db(driver, dados = dados, textRelatorio= textRelatorio, nome_relatorio="Troca de foto - Motorista",nomeApp=['nomeApp'], status= "Sucesso")
+            return {'mensagem': 'SOLICITAÇÃO DE TROCA DE FOTO ENVIADA', 'falhou': False},sys.exit() 
+            

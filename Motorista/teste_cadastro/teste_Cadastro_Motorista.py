@@ -2,9 +2,7 @@
 from appium.webdriver import Remote
 import sys
 from time import sleep
-from geradorRelatorio.geradorRelatorios_Driver import GerandoRelatorio
-from Motorista.teste_login.variaveisCadastro import*
-from Motorista.teste_login.variaveisProfileMenu import*
+from Motorista.variaveis.variaveis import*
 from appium.webdriver.common.touch_action import TouchAction
 from helpers.geradorcpf import cpf_validado
 from helpers.helpers import Helpers
@@ -76,7 +74,7 @@ class Teste_Cadastro_Motorista():
         except Exception as erro:
 
             textRelatorio = "<li> ERRO Ao clickar em registrar - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'botão de registrar não encontrado', 'falhou': False}, erro
         else:
             return True     
@@ -89,7 +87,7 @@ class Teste_Cadastro_Motorista():
             print("tipo motorista")
         except Exception as erro:
             textRelatorio = "<li> ERRO AO DEFINIR TIPO DE MOTORISTA - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'Não foi possivel defirnir tipo de motorista', 'falhou': False}, erro, sys.exit()
         else:
             return True     
@@ -101,7 +99,7 @@ class Teste_Cadastro_Motorista():
             sleep(3)            
         except Exception as erro:
             textRelatorio = "<li> ERRO TELA DE ENVIO DE DADOS NÃO FOI ENCONTRADO - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'Tela de envio de dados não foi carregada', 'falhou': False}, erro, sys.exit()
 
         try:
@@ -110,7 +108,7 @@ class Teste_Cadastro_Motorista():
             sleep(3)
         except Exception as erro:
             textRelatorio = "<li> ERRO NÃO FOI POSSIVEL INSERIR O CPF - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL INSERIR O CPF', 'falhou': False}, erro, sys.exit()
         
         try:
@@ -119,7 +117,7 @@ class Teste_Cadastro_Motorista():
             sleep(3)
         except Exception as erro:
             textRelatorio = "<li> ERRO NÃO FOI POSSIVEL INSERIR O EMAIL - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL INSERIR O EMAIL', 'falhou': False}, erro, sys.exit()
         
         try:
@@ -138,7 +136,7 @@ class Teste_Cadastro_Motorista():
             sleep(5)
         except Exception as erro:
             textRelatorio = "<li> NÃO FOI POSSIVEL DEFINIR O GENERO - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL DEFINIR O GENERO', 'falhou': False}, erro, sys.exit()
         
         try:
@@ -148,7 +146,7 @@ class Teste_Cadastro_Motorista():
             nextButton01.click()
         except Exception as erro:
             textRelatorio = "<li> ERRO NÃO FOI POSSIVEL AVANAÇAR PARA TELA SEGUINTE - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL AVANAÇAR PARA TELA SEGUINTE', 'falhou': False}, erro, sys.exit()
         
         else:
@@ -164,7 +162,7 @@ class Teste_Cadastro_Motorista():
             driver.find_element_by_xpath(toTypePassword).send_keys("123456")
         except Exception as erro:
             textRelatorio = "<li> ERRO NÃO FOI POSSIVEL INSERIR A SENHA - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL INSERIR A SENHA', 'falhou': False}, erro, sys.exit()
     
         try:
@@ -173,7 +171,7 @@ class Teste_Cadastro_Motorista():
             driver.find_element_by_xpath(toConfirmPassword).send_keys("123456")
         except Exception as erro:
             textRelatorio = "<li> ERRO NÃO FOI POSSIVEL CONFIRMAR O PASSWORD  - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL CONFIRMAR O PASSWORD', 'falhou': False}, erro, sys.exit()
         else:
             nextButton= driver.find_element_by_xpath(toContinue)
@@ -187,7 +185,7 @@ class Teste_Cadastro_Motorista():
             driver.find_element_by_xpath(citySelector1).click()
         except Exception as erro:
             textRelatorio = "<li> ERRO NÃO FOI POSSIVEL ENCONTRAR O CAMPO DA CIDADE- FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL ENCONTRAR O CAMPO DA CIDADE', 'falhou': False}, erro, sys.exit()
         
         try:
@@ -196,7 +194,7 @@ class Teste_Cadastro_Motorista():
             driver.find_element_by_xpath(citySelector2).click()
         except Exception as erro:
             textRelatorio = "<li> ERRO NÃO FOI POSSIVEL SELECIONAR A CIDADE - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL SELECIONAR A CIDADE', 'falhou': False}, erro, sys.exit()
         else:
             nextButton= driver.find_element_by_xpath(toContinue)
@@ -218,11 +216,11 @@ class Teste_Cadastro_Motorista():
                 sleep(1)
             else:
                 textRelatorio = "<li>  ERRO NÃO FOI POSSIVEL DESCER A TELA DE TERMOS- FALHOU</li>"
-                GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+                #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
                 return {'Mensagem': 'NÃO FOI POSSIVEL DESCER A TELA DE TERMOS', 'falhou': False}, erro, sys.exit()
         except Exception as erro:
             textRelatorio = "<li> ERRO NÃO FOI POSSIVEL SELECIONAR IDENTIFICAR A TELA DE TERMOS - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL SELECIONAR IDENTIFICAR A TELA DE TERMOS', 'falhou': False}, erro, sys.exit()
         
         try:
@@ -230,7 +228,7 @@ class Teste_Cadastro_Motorista():
             driver.find_element_by_xpath(useTerms).click()
         except Exception as erro:
             textRelatorio = "<li> ERRO NÃO FOI POSSIVEL ENCONTRAR O CAMPO PARA ACEITAR TERMOS - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL ENCONTRAR O CAMPO PARA ACEITAR TERMOS', 'falhou': False}, erro, sys.exit()
         
         else:
@@ -251,7 +249,7 @@ class Teste_Cadastro_Motorista():
                     sleep(3)
                 except Exception as erro:
                     textRelatorio = "<li> ERRO NÃO FOI POSSIVEL ABRIR A CAMERA - FALHOU</li>"
-                    GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+                    #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
                     return {'Mensagem': 'NÃO FOI POSSIVEL ABRIR A CAMERA', 'falhou': False}, erro, sys.exit()
 
 
@@ -267,12 +265,12 @@ class Teste_Cadastro_Motorista():
                         sleep(3)
                     except Exception as erro:
                         textRelatorio = "<li> ERRO NÃO FOI POSSIVEL DAR ACESSO A CAMERA - FALHOU</li>"
-                        GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+                        #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
                         return {'Mensagem': 'NÃO FOI POSSIVEL DAR ACESSO A CAMERA', 'falhou': False}, erro, sys.exit()
 
             except Exception as erro:
                     textRelatorio = "<li> NÃO FOI POSSIVEL IDENTIFICAR CAMPO DE ACESSO A CAMERA</li>"
-                    GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+                    #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
                     return {'Mensagem': 'NÃO FOI POSSIVEL IDENTIFICAR CAMPO DE ACESSO A CAMERA', 'falhou': False}
 
             
@@ -285,12 +283,12 @@ class Teste_Cadastro_Motorista():
                     sleep(3)
                 else:
                     textRelatorio = "<li> ERRO NÃO FOI POSSIVEL  BATER A FOTO - FALHOU</li>"
-                    GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+                    #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
                     return {'Mensagem': 'NÃO FOI POSSIVEL  BATER A FOTO', 'falhou': False}, erro, sys.exit()
 
             except Exception as erro:
                     textRelatorio = "<li> ERRO NÃO FOI POSSIVEL ENCONTRAR O BOTAO PARA BATER A FOTO - FALHOU</li>"
-                    GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+                    #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
                     return {'Mensagem': 'NÃO FOI POSSIVEL ENCONTRAR O BOTAO PARA BATER A FOTO', 'falhou': False}, erro, sys.exit()
 
             else:
@@ -304,18 +302,18 @@ class Teste_Cadastro_Motorista():
                     sleep(3)
                 else:
                     textRelatorio = "<li> ERRO NÃO FOI POSSIVEL ENVIAR A FOTO - FALHOU</li>"
-                    GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+                    #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
                     return {'Mensagem': 'NÃO FOI POSSIVEL ENVIAR A FOTO', 'falhou': False}, erro, sys.exit()
 
             except Exception as erro:
                     textRelatorio = "<li> ERRO NÃO FOI POSSIVEL ENCONTRAR O BOTAO PARA ENVIO - FALHOU</li>"
-                    GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+                    #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
                     return {'Mensagem': 'NÃO FOI POSSIVEL ENCONTRAR O BOTAO PARA ENVIO', 'falhou': False}, erro, sys.exit()
 
         except Exception as erro:
 
             textRelatorio = "<li> ERRO NÃO FOI POSSIVEL ACESSAR A CAMERA - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL ACESSAR A CAMERA', 'falhou': False}, erro, sys.exit()
 
         else:
@@ -330,7 +328,7 @@ class Teste_Cadastro_Motorista():
             driver.find_element_by_xpath(vehicleBrand).send_keys("Fiat")
         except Exception as erro:
             textRelatorio = "<li> ERRO NÃO FOI POSSIVEL INSERIR A MARCA- FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL INSERIR A MARCA', 'falhou': False}, erro, sys.exit()
 
         try:
@@ -338,7 +336,7 @@ class Teste_Cadastro_Motorista():
             driver.find_element_by_xpath(vehicleModel).send_keys("Uno da 704Apps")
         except Exception as erro:
             textRelatorio = "<li> ERRO NÃO FOI POSSIVEL INSERIR O MODELO DO CARRO - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL INSERIR O MODELO DO CARRO', 'falhou': False}, erro, sys.exit()
 
         try:
@@ -346,7 +344,7 @@ class Teste_Cadastro_Motorista():
             driver.find_element_by_xpath(vehiclePlate).send_keys("TST-0704")
         except Exception as erro:
             textRelatorio = "<li> ERRO NÃO FOI POSSIVEL INSERIR A PLACA - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL INSERIR A PLACA', 'falhou': False}, erro, sys.exit()
 
         try:
@@ -354,7 +352,7 @@ class Teste_Cadastro_Motorista():
             driver.find_element_by_xpath(vehicleVinNumber).send_keys("12171174856")
         except Exception as erro:
             textRelatorio = "<li> ERRO NÃO FOI POSSIVEL INSERIR O RENAVAM - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL INSERIR O RENAVAM', 'falhou': False}, erro, sys.exit()
 
 
@@ -363,7 +361,7 @@ class Teste_Cadastro_Motorista():
             driver.find_element_by_xpath(vehicleColor).send_keys('Azul')
         except Exception as erro:
             textRelatorio = "<li> NÃO FOI POSSIVEL INSERIR A COR DO CARRO - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL INSERIR A COR DO CARRO', 'falhou': False}, erro, sys.exit()
 
         try:
@@ -371,7 +369,7 @@ class Teste_Cadastro_Motorista():
             driver.find_element_by_xpath(vehicleSeatsNumber).send_keys('5')
         except Exception as erro:
             textRelatorio = "<li> ERRO NÃO FOI POSSIVEL DEFINIR A QUANTIDADE DE ACENTOS DO VEICULO - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL DEFINIR A QUANTIDADE DE ACENTOS DO VEICULO', 'falhou': False}, erro, sys.exit()
 
         try:
@@ -379,7 +377,7 @@ class Teste_Cadastro_Motorista():
             driver.find_element_by_xpath(vehicleYear).send_keys('2018')
         except Exception as erro:
             textRelatorio = "<li> ERRO NÃO FOI POSSIVEL DEFINIR O ANO DO CARRO - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL DEFINIR O ANO DO CARRO', 'falhou': False}, erro, sys.exit()
         else:
             nextButton= driver.find_element_by_xpath(toContinue)
@@ -397,7 +395,7 @@ class Teste_Cadastro_Motorista():
                 sleep(3)
         except Exception as erro:
             textRelatorio = "<li> ERRO NÃO FOI POSSIVEL ENCONTRAR O CAMPO PARA INSERIR A CNH - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL ENCONTRAR O CAMPO PARA INSERIR A CNH ', 'falhou': False}, erro, sys.exit()
         
         try:
@@ -410,7 +408,7 @@ class Teste_Cadastro_Motorista():
         
         except Exception as erro:
             textRelatorio = "<li> ERRO NÃO FOI POSSIVEL ENCONTRAR O CAMPO PARA ENVIAR A FOTO DA CNH - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL ENCONTRAR O CAMPO PARA ENVIAR A FOTO DA CNH ', 'falhou': False}, erro, sys.exit()
 
 
@@ -424,7 +422,7 @@ class Teste_Cadastro_Motorista():
         
         except Exception as erro:
             textRelatorio = "<li> ERRO NÃO FOI POSSIVEL  BATER A FOTO DA CNH - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL  BATER A FOTO DA CNH', 'falhou': False}, erro, sys.exit()
 
         
@@ -437,7 +435,7 @@ class Teste_Cadastro_Motorista():
                 sleep(3)
         except Exception as erro:
             textRelatorio = "<li> ERRO NÃO FOI POSSIVEL ENVIAR A FOTO DA CNH - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL ENVIAR A FOTO DA CNH', 'falhou': False}, erro, sys.exit()
         
         else:
@@ -456,7 +454,7 @@ class Teste_Cadastro_Motorista():
         
         except Exception as erro:
             textRelatorio = "<li> ERRO NÃO FOI POSSIVEL INSERIR O CRLV - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL INSERIR O CRLV', 'falhou': False}, erro, sys.exit()
         
         try:
@@ -469,7 +467,7 @@ class Teste_Cadastro_Motorista():
         
         except Exception as erro:
             textRelatorio = "<li> ERRO NÃO FOI POSSIVEL IDENTIFICAR O CAMPO PARA ENVIO DE IMAGENS DA CLRV - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL IDENTIFICAR O CAMPO PARA ENVIO DE IMAGENS DA CLRV', 'falhou': False}, erro, sys.exit()
         
         try:
@@ -482,7 +480,7 @@ class Teste_Cadastro_Motorista():
         
         except Exception as erro:
             textRelatorio = "<li> ERRO NÃO FOI POSSIVEL  BATER A FOTO DO CRLV - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL  BATER A FOTO DO CRLV', 'falhou': False}, erro, sys.exit()
 
         
@@ -496,7 +494,7 @@ class Teste_Cadastro_Motorista():
         
         except Exception as erro:
             textRelatorio = "<li> ERRO NÃO FOI POSSIVEL ENVIAR A FOTO DO CRLV - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL ENVIAR A FOTO DO CRLV', 'falhou': False}, erro, sys.exit()
 
         else:
@@ -514,7 +512,7 @@ class Teste_Cadastro_Motorista():
 
         except Exception as erro:
             textRelatorio = "<li> ERRO NÃO FOI POSSIVEL INSERIR OS ANTECEDENTES CRIMINAIS - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL INSERIR OS ANTECEDENTES CRIMINAIS', 'falhou': False}, erro, sys.exit()
         
         try:
@@ -527,7 +525,7 @@ class Teste_Cadastro_Motorista():
         
         except Exception as erro:
             textRelatorio = "<li> ERRO NÃO FOI POSSIVEL ACESSAR O CAMPO PARA ENVIAR A FOTO DOS ANTECEDENTES CRIMINAIS - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL ACESSAR O CAMPO PARA ENVIAR A FOTO DOS ANTECEDENTES CRIMINAIS', 'falhou': False}, erro, sys.exit()
         
         try:
@@ -540,7 +538,7 @@ class Teste_Cadastro_Motorista():
         
         except Exception as erro:
             textRelatorio = "<li> ERRO NÃO FOI POSSIVEL  BATER A FOTO DOS ANTECEDENTES CRIMINAIS - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL  BATER A FOTO DOS ANTECEDENTES CRIMINAIS', 'falhou': False}, erro, sys.exit()
 
         
@@ -554,7 +552,7 @@ class Teste_Cadastro_Motorista():
         
         except Exception as erro:
             textRelatorio = "<li> ERRO NÃO FOI POSSIVEL ENVIAR A FOTO DOS ANTECEDENTES CRIMINAIS - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL ENVIAR A FOTO DOS ANTECEDENTES CRIMINAIS', 'falhou': False}, erro, sys.exit()
         
         else:
@@ -573,7 +571,7 @@ class Teste_Cadastro_Motorista():
         
         except Exception as erro:
             textRelatorio = "<li> ERRO NÃO FOI POSSIVEL ACESSAR O CAMPO PARA ENVIAR A FOTO DO COMPROVANTE DE ENDEREÇO - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL ACESSAR O CAMPO PARA ENVIAR A FOTO DO COMPROVANTE DE ENDEREÇO', 'falhou': False}, erro, sys.exit()
         
         try:
@@ -586,7 +584,7 @@ class Teste_Cadastro_Motorista():
         
         except Exception as erro:
             textRelatorio = "<li> ERRO NÃO FOI POSSIVEL  BATER A FOTO DO COMPROVANTE DE ENDEREÇO - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL  BATER A FOTO COMPROVANTE DE ENDEREÇO', 'falhou': False}, erro, sys.exit()
      
         try:
@@ -599,7 +597,7 @@ class Teste_Cadastro_Motorista():
         
         except Exception as erro:
             textRelatorio = "<li> ERRO NÃO FOI POSSIVEL ENVIAR A FOTO COMPROVANTE DE ENDEREÇO - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL ENVIAR A FOTO COMPROVANTE DE ENDEREÇO', 'falhou': False}, erro, sys.exit()
 
         else:
@@ -617,12 +615,12 @@ class Teste_Cadastro_Motorista():
         except Exception as erro:
 
             textRelatorio = "<li> ERRO NÃO FOI POSSIVEL ENCONTRAR O BOTÃO PARA CONCLUIR CADASTRO - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'NÃO FOI POSSIVEL ENCONTRAR O BOTÃO PARA CONCLUIR CADASTRO', 'falhou': False}, erro
         
         else:
             textRelatorio = "<li> TESTE CONCLUIDO COM SUCESSO - FALHOU</li>"
-            GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
+            #GerandoRelatorio.gerando_pasta_relatorio(driver, dados, textRelatorio)
             return {'Mensagem': 'TESTE CONCLUIDO COM SUCESSO', 'sucesso': True}
 
 #######################################################################################################################################

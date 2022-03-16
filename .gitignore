@@ -1,0 +1,13 @@
+
+config.py
+
+.vscode/
+
+relatorios/
+
+__pycache__/
+
+*.pyc
+*.pyo
+
+ambiente_virtual/
